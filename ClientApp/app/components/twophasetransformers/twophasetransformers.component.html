@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p *ngIf="!twophasetransformer"><em>Loading Overhead Lines data please Wait ! ...</em></p>
+
+    <table class="table" *ngIf="twophasetransformer">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>No. of HV node</th>
+                <th>No. of LV node</th>
+                <th>Rated voltage - HV side [kV]</th>
+                <th>Rated voltage - LV side [kV]</th>
+                <th>Rated apparent power [MVA]</th>
+                <th>Load Losses [kW]</th>
+                <th>Short Circuit Voltage [%]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let TwoPhaseTransformers of twophasetransformer">
+                <td>{{TwoPhaseTransformers.name}}</td>
+                <td>{{TwoPhaseTransformers.HVNodeNo}}</td>
+                <td>{{TwoPhaseTransformers.LVNodeNo}}</td>
+                <td>{{TwoPhaseTransformers.HVVoltageRated}}</td>
+                <td>{{TwoPhaseTransformers.LVVoltageRated}}</td>
+                <td>{{TwoPhaseTransformers.apparentPowerRated}}</td>
+                <td>{{TwoPhaseTransformers.loadLossesRated}}</td>
+                <td>{{TwoPhaseTransformers.shortCircuitVoltage}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

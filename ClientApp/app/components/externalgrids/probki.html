@@ -1,0 +1,222 @@
+
+    /*
+    settings = {
+      mode: 'inline',
+      add: {
+        confirmCreate: true,
+      },
+      delete: {
+        confirmDelete: true,
+      },
+  
+      columns: {
+        id: {
+          title: 'id'
+        },
+        name: {
+          title: 'name'
+        },
+        nodeNo: {
+          title: 'No. of node'
+        },
+        nodeType: {
+          title: 'Type of node'
+        },
+        voltageAngle: {
+          title: 'Voltage angle [deg]'
+        },
+        voltageSetpoint: {
+          title: 'Voltage setpoint [p.u.]'
+        },
+        activePower: {
+          title: 'Active power [MW]'
+        },
+        reactivePower: {
+          title: 'Reactive power [MVAr]'
+        },
+      }
+    };
+  
+  
+   
+    onCreateConfirm(event) {  
+      if (window.confirm('Are you sure you want to create?')) {     
+  
+        event.confirm.resolve();
+      } else {
+        event.confirm.reject();
+      }
+    }
+    onDeleteConfirm(event) {
+      
+      
+      if (window.confirm('Are you sure you want to delete?')) {
+        event.confirm.resolve();
+      } else {
+        event.confirm.reject();
+      }
+    } 
+    onCreate(){
+      alert("jesten");
+    }
+    */
+    /*
+    template: `
+    <ng2-smart-table 
+    [settings]="settings"
+    [source]="externalgrid"
+    (createConfirm)="onCreateConfirm($event)"
+    (deleteConfirm)="onDeleteConfirm($event)"
+    (create) = "onCreate()">  
+    </ng2-smart-table>
+  `, */
+    
+    <p *ngIf="!externalgrid"><em>Loading External Grids Details please Wait ! ...</em></p>
+    
+        <button type="button" class=".btn" (click)=AddExtGrid()> <!-- [@moveRight]='animStatus' [@buttonReSize]='animStatus' -->
+        Add External Grid Information
+        </button>
+        
+        <table class="table-striped">
+    
+            <tr *ngIf="AddExtGridTable">
+                <td [@fadeIn]='animStatus'>
+                    <table>
+                        <tr>
+                            <td>
+                                <table style="background-color:#FFFFFF; border: dashed 3px #6D7B8D; padding :5px;width :99%;table-layout:fixed;" cellpadding="2"
+                                    cellspacing="2">
+                                    <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;border: solid 1px #659EC7;">
+                                        <td width="40">
+                                        </td>
+                                        <td>
+                                            <h2>Insert/Edit External Grid Details : </h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100">
+    
+                                        </td>
+                                        <td>
+                                            <table style="color:#9F000F;font-size:large; padding :5px;" cellpadding="12" cellspacing="16">
+                                                <tr>
+                                                    <td><b>External Grid id: </b> </td>
+                                                    <td>
+                                                        <input type="text" #ID (ngModel)="IDs" value="{{IDs}}" style="background-color:tan" readonly>
+                                                    </td>
+                                                    <td width="20"> </td>
+                                                    <td><b>name: </b> </td>
+                                                    <td>
+                                                        <input type="text" #Name (ngModel)="Names" value="{{Names}}">
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Node number: </b> </td>
+                                                    <td>
+                                                        <input type="text" #NodeNo (ngModel)="NodeNos" value="{{NodeNos}}">
+                                                    </td>
+                                                    <td width="20"> </td>
+                                                    <td><b>Node type: </b> </td>
+                                                    <td>
+                                                        <input type="text" #NodeType (ngModel)="NodeTypes" value="{{NodeTypes}}">
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Voltage angle: </b> </td>
+                                                    <td>
+                                                        <input type="text" #VoltageAngle (ngModel)="VoltageAngles" value="{{VoltageAngles}}">
+                                                    </td>
+                                                    <td width="20"> </td>
+                                                    <td><b>Voltage setpoint: </b> </td>
+                                                    <td>
+                                                        <input type="text" #VoltageSetpoint (ngModel)="VoltageSetpoints" value="{{VoltageSetpoints}}">
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Active Power: </b> </td>
+                                                    <td>
+                                                        <input type="text" #ActivePower (ngModel)="ActivePowers" value="{{ActivePowers}}">
+                                                    </td>
+                                                    <td width="20"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Reactive Power: </b> </td>
+                                                    <td>
+                                                        <input type="text" #ReactivePower (ngModel)="ReactivePowers" value="{{ReactivePowers}}">
+                                                    </td>
+                                                    <td width="20"> </td>
+                                                    <td align="right" colspan="2">
+                                                        <button (click)=addExtGridDetails(ID.value,Name.value,NodeNo.value,NodeType.value,VoltageAngle.value,VoltageSetpoint.value,ActivePower.value,ReactivePower.value)
+                                                            style="background-color:#428d28;color:#FFFFFF;font-size:large;width:220px;  
+                                         border-color:#a2aabe;border-style:dashed;border-width:2px;" [@moveBottom]='animStatus'>  
+                                                               Save  
+                                                           </button>
+    
+    
+    
+                                                    </td>
+                                                    <td>
+    
+                                                        <button (click)=closeEdits() style="background-color:#334668;color:#FFFFFF;font-size:large;width:180px;  
+                                         border-color:#a2aabe;border-style:dashed;border-width:2px;" [@moveTop]='animStatus'>  
+                                                               Close  
+                                                           </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+    
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr style="height: 1px;color: #123455;background-color: #d55500;border: none;color: #d55500;" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+    
+            </tr>
+        </table>
+      
+    
+        <table class="table" *ngIf="externalgrid">
+        
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Name</th>
+                    <th>No. of node</th>
+                    <th>Type of node</th>
+                    <th>Voltage angle [deg]</th>
+                    <th>Voltage setpoint [p.u.]</th>
+                    <th>Active power [MW]</th>
+                    <th>Reactive power [MVAr]</th>
+                </tr>
+            </thead>
+    
+            <tbody *ngFor="let ExternalGrids  of externalgrid" > <!--[@moveTop]='animStatus' -->
+                <tr>
+                    <td>
+                        <img src="{{imgEdit}}"  style="height:32px;width:32px" (click)=editExtGridDetails(ExternalGrids.id,ExternalGrids.name,ExternalGrids.nodeNo,ExternalGrids.nodeType,ExternalGrids.voltageAngle,ExternalGrids.voltageSetpoint,ExternalGrids.activePower,ExternalGrids.reactivePower)>  
+                    </td>
+                    <td><img src="{{imgDelete}}" style="height:32px;width:32px" (click)=deleteExtGridDetails(ExternalGrids.id)></td>   
+                    <td>{{ExternalGrids.name}}</td>
+                    <td>{{ExternalGrids.nodeNo}}</td>
+                    <td>{{ExternalGrids.nodeType}}</td>
+                    <td>{{ExternalGrids.voltageAngle}}</td>
+                    <td>{{ExternalGrids.voltageSetpoint}}</td>
+                    <td>{{ExternalGrids.activePower}}</td>
+                    <td>{{ExternalGrids.reactivePower}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+    
+    

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p *ngIf="!overheadline"><em>Loading Overhead Lines data please Wait ! ...</em></p>
+
+    <table class="table" *ngIf="overheadline">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>No. of start node</th>
+                <th>No. of end node</th>
+                <th>Length [km]</th>
+                <th>Unitary resistance [Ω/km]</th>
+                <th>Unitary reactance [Ω/km]</th>
+                <th>Unitary capacitance [μS/km]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let OverheadLines of overheadline">
+                <td>{{OverheadLines.name}}</td>
+                <td>{{OverheadLines.startNodeNo}}</td>
+                <td>{{OverheadLines.endNodeNo}}</td>
+                <td>{{OverheadLines.length}}</td>
+                <td>{{OverheadLines.unitaryResistance}}</td>
+                <td>{{OverheadLines.unitaryReactance}}</td>
+                <td>{{OverheadLines.unitaryCapacitance}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
