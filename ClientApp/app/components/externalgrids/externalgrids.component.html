@@ -1,48 +1,38 @@
 ﻿<!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <title>External grid</title>
+    
+        <!--
+        <link rel="stylesheet" type="text/css" href="./ag-grid.css">
+        <link rel="stylesheet" type="text/css" href="./ag-theme-material.css">
 
-<head>
-    <meta charset="utf-8" />
-    <title>External grid</title>
-
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="http://www.jqwidgets.com/public/jqwidgets/styles/jqx.base.css" type="text/css" /> 
-    <!-- jQWidgets -->
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxcore.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxdata.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxbuttons.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxscrollbar.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxmenu.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxgrid.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxgrid.selection.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxgrid.columnsresize.js"></script>
-    <script src="http://www.jqwidgets.com/public/jqwidgets/jqxgrid.sort.js"></script>
-</head>
-
+        -->
+        
+        <!--
+        <link href="wwwroot/ag-grid.css" rel="stylesheet" type="text/css" />
+        <link href="wwwroot/ag-theme-material.css" rel="stylesheet" type="text/css" />
+        -->
+    </head>
 <body>
-
     
-         <app-root>Loading...</app-root>
-         <!--
-        <div id="container">
-                <jqxGrid
-                [width]="850" [source]="dataAdapter" [columns]="columns" 
-                [columnsresize]="true" [sortable]="true">
-                </jqxGrid>
-                
+        
+        
+    <ag-grid-angular #agGrid style="width: 500px; height: 150px;" class="ag-fresh"
+    [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData">
+    </ag-grid-angular> 
 
-        </div>-->
-    
-      
-   
-    <!-- 
-    <jqxGrid 
-    [width]="850" [source]="dataAdapter" [columns]="columns"
-    [pageable]="true" [autoheight]="true" [sortable]="true"
-    [altrows]="true" [enabletooltips]="true" [editable]="true"
-    [selectionmode]="'multiplecellsadvanced'" [columngroups]="columngroups">
-    </jqxGrid>
+         
+    <!--
+       
+    <ag-grid-angular style="width: 500px; height: 115px;" class="ag-fresh"
+    [rowData]="rowData"
+
+    [columnDefs]="columnDefs">
+</ag-grid-angular>
 -->
 
     <!--

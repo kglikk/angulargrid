@@ -1,10 +1,11 @@
 
-import { NgModule } from '@angular/core';
+
+import { NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import {AgGridModule} from 'ag-grid-angular/main';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -17,31 +18,35 @@ import { TwoPhaseTransformersComponent } from './components/twophasetransformers
 import { LoadFlowComponent } from './components/loadflow/loadflow.component';
 
 //import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { jqxGridComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxgrid';
+//import { jqxGridComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxgrid';
+//import { DataTableModule }   from 'jqwidgets-framework/demos/angular/app/modules/datatable.module';
 
 
+//import {BaseComponentFactory} from 'ag-grid-angular/src/baseComponentFactory';
 
 @NgModule({
     
     declarations: [
         AppComponent,
         NavMenuComponent,
+        HomeComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent,
         ExternalGridsComponent,
         OverheadLinesComponent,
         TwoPhaseTransformersComponent,
-        LoadFlowComponent,
-        jqxGridComponent
+        LoadFlowComponent
+      //  BaseComponentFactory       
           
     ],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
-        //Ng2SmartTableModule,
-        //jqxDataTableComponent,
+        //AgGridModule.forRoot(),
+        AgGridModule.withComponents([]),
+        
+        
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

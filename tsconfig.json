@@ -2,21 +2,21 @@
 
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "commonjs", //było es2015
     "moduleResolution": "node",
     "declaration": false,
    
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "skipDefaultLibCheck": true,
+    //"skipDefaultLibCheck": true,
     "skipLibCheck": true, // Workaround for https://github.com/angular/angular/issues/17863. Remove this if you upgrade to a fixed version of Angular.
    // "strict": true,
     "noImplicitAny": false, // dodałem
-    "lib": [ "es6", "dom" ],
+    "lib": [ "es6", "dom", "es2015" ], //dodałem es2015
     "typeRoots": [ "./node_modules/@types" ],
     "types": [ "webpack-env" ]
   },
-  "exclude": [ "bin", "node_modules" ],
+  "exclude": [ "bin", "node_modules/*" ],
   "atom": { "rewriteTsconfig": false }
 }
