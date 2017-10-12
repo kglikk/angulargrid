@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 
 
-
+import "ag-grid-angular/main";
 
 @Component({
     selector: 'app',

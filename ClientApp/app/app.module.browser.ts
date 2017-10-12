@@ -10,7 +10,7 @@ import { AppComponent } from './components/app/app.component';
 @NgModule({ 
 
 
-
+    // określa komponent od którego aplikacja startuje
     bootstrap: [ AppComponent ],
     imports: [
         BrowserModule,

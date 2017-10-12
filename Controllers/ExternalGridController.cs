@@ -13,8 +13,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace angulargrid.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/ExternalGridController")]
+    //[Produces("application/json")]
+    [Route("api/[controller]")]
     public class ExternalGridController : Controller
     {
         private readonly DataContext _context;
@@ -25,9 +25,9 @@ namespace angulargrid.Controllers
         }
 
         // GET: api/values
-        [HttpGet]
-        [Route("GetExternalGrids")]
-        public IEnumerable<ExternalGrid> Get()
+        [HttpGet("[action]")]
+       // [Route("GetExternalGrids")]
+        public IEnumerable<ExternalGrid> GetExternalGrids()
         {
             return _context.ExternalGrids;
         }
@@ -57,9 +57,9 @@ namespace angulargrid.Controllers
                     throw;  
                 }  
             }  
-  
             return CreatedAtAction("GetExternalGrids", new { id = extgrid.ID }, extgrid);  
         }
+
         private bool ExtGridExists(int id)  
         {  
             return _context.ExternalGrids.Any(e => e.ID == id);  

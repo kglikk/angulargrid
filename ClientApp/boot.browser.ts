@@ -2,6 +2,11 @@ import 'reflect-metadata';
 import 'zone.js';
 import 'bootstrap';
 
+/*
+import 'ag-grid/dist/styles/ag-grid.css';
+import'ag-grid/dist/styles/theme-fresh.css';
+import 'ag-grid-angular/main';  */
+
 
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

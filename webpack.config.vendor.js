@@ -17,6 +17,12 @@ const treeShakableModules = [
 const nonTreeShakableModules = [
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
+    
+    /*
+    'ag-grid/dist/styles/ag-grid.css',
+    'ag-grid/dist/styles/theme-fresh.css',
+    'ag-grid-angular/main', */
+
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',

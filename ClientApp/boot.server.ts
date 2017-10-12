@@ -1,6 +1,11 @@
 import 'reflect-metadata';
 import 'zone.js';
 import 'rxjs/add/operator/first';
+
+//import 'ag-grid/dist/styles/ag-grid.css';
+//import'ag-grid/dist/styles/theme-fresh.css';
+//import 'ag-grid-angular/main';
+
 import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode, ApplicationRef, NgZone, ValueProvider } from '@angular/core';
 import { platformDynamicServer, PlatformState, INITIAL_CONFIG } from '@angular/platform-server';

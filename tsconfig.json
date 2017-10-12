@@ -2,7 +2,7 @@
 
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs", //było es2015
+    "module": "es2015", //w aggrid powinno być commonjs
     "moduleResolution": "node",
     "declaration": false,
    
@@ -17,6 +17,6 @@
     "typeRoots": [ "./node_modules/@types" ],
     "types": [ "webpack-env" ]
   },
-  "exclude": [ "bin", "node_modules/*" ],
+  "exclude": [ "bin", "node_modules/*", "spadki" ],
   "atom": { "rewriteTsconfig": false }
 }

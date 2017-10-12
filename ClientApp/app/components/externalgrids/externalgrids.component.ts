@@ -1,9 +1,5 @@
-﻿
-//import 'ag-grid/dist/styles/ag-grid.css';
-//import 'ag-grid/dist/styles/theme-fresh.css';
-
-import {
-  Component, Input, trigger,
+﻿import {
+  Component, Inject, Input, trigger,
   state,
   style,
   transition,
@@ -12,297 +8,165 @@ import {
 } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { FormsModule } from '@angular/forms';
-import {GridOptions} from "ag-grid/main";
+
+import { GridOptions } from "ag-grid/main";
+import { ButtonDeleteComponent } from './button-delete.component';
+//import {ButtonDeleteComponent } from './components/externalgrids/button-delete.component';
 
 @Component({
-  selector: 'my-app',
-  animations: [
-    trigger('buttonReSize', [
-      state('inactive', style({
-        transform: 'scale(1)',
-        backgroundColor: '#f83500'
-      })),
-      state('active', style({
-        transform: 'scale(1.4)',
-        backgroundColor: '#0094ff'
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-      transition('active => inactive', animate('100ms ease-out'))
-    ]),
-
-    trigger('moveBottom', [
-
-      transition('void => *', [
-        animate(900, keyframes([
-          style({ opacity: 0, transform: 'translateY(-200px)', offset: 0 }),
-          style({ opacity: 1, transform: 'translateY(25px)', offset: .75 }),
-          style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
-
-        ]))
-      ])
-
-    ]),
-    trigger('moveTop', [
-
-      transition('void => *', [
-        animate(900, keyframes([
-          style({ opacity: 0, transform: 'translateY(+400px)', offset: 0 }),
-          style({ opacity: 1, transform: 'translateY(25px)', offset: .75 }),
-          style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
-
-        ]))
-      ])
-
-    ]),
-
-    trigger('moveRight', [
-
-      transition('void => *', [
-        animate(900, keyframes([
-          style({ opacity: 0, transform: 'translateX(-400px)', offset: 0 }),
-          style({ opacity: 1, transform: 'translateX(25px)', offset: .75 }),
-          style({ opacity: 1, transform: 'translateX(0)', offset: 1 }),
-
-        ]))
-      ])
-
-    ]),
-    trigger('movelLeft', [
-
-      transition('void => *', [
-        animate(900, keyframes([
-          style({ opacity: 0, transform: 'translateX(+400px)', offset: 0 }),
-          style({ opacity: 1, transform: 'translateX(25px)', offset: .75 }),
-          style({ opacity: 1, transform: 'translateX(0)', offset: 1 }),
-
-        ]))
-      ])
-
-    ]),
-    trigger('fadeIn', [
-      transition('* => *', [
-        animate('1s', keyframes([
-          style({ opacity: 0, transform: 'translateX(0)', offset: 0 }),
-          style({ opacity: 1, transform: 'translateX(0)', offset: 1 }),
-        ]))
-      ])
-    ]),
-  ],
-  //template: require('./externalgrids.component.html'),
-  //Every jQWidgets Angular component has an [auto-create] attribute which determines whether the component is automatically created or is created on demand by API method call. By default, the [auto-create] attribute value is true.
-  
-  //template: `  `,
-
-  templateUrl:'./externalgrids.component.html',
-  /*styleUrls: ['./ag-grid.css', './ag-theme-material.css'],  */
-  styleUrls: ['ag-grid.css', 'ag-theme-material.css'],
-
+  selector: 'my-app',  
+  templateUrl: './externalgrids.component.html',
 })
 
 export class ExternalGridsComponent {
-  
+  // to get the ExternalGrids Details 
+  public externalgrid: ExternalGrids[] = []
+
   gridOptions: GridOptions;
   rowData: any[];
   columnDefs: any[];
+  defaultColDef: any[];
 
-  constructor() {
-      // we pass an empty gridOptions in, so we can grab the api out
-      this.gridOptions = <GridOptions>{
-          onGridReady: () => {
-              this.gridOptions.api.sizeColumnsToFit();
-          }
-      };
-      this.columnDefs = [
-          {headerName: "Make", field: "make"},
-          {headerName: "Model", field: "model"},
-          {headerName: "Price", field: "price"}
-      ];
-      this.rowData = [
-          {make: "Toyota", model: "Celica", price: 35000},
-          {make: "Ford", model: "Mondeo", price: 32000},
-          {make: "Porsche", model: "Boxter", price: 72000}
-      ];
-  }
+  //for animation status   
+  animStatus: string = 'inactive';
 
-  selectAllRows() {
-      this.gridOptions.api.selectAll();
-  }
+  @Inject('BASE_URL') baseUrl: string;
 
- 
+  constructor(public http: Http, @Inject('BASE_URL') baseUrl: string) {
+    // we pass an empty gridOptions in, so we can grab the api out
+    this.gridOptions = <GridOptions>{
+      onGridReady: () => {
+        this.gridOptions.api.sizeColumnsToFit(); //make the currently visible columns fit the screen.
+      },     
+      
+    }; 
 
-/*
-  // to get the ExternalGrids Details 
-  //public externalgrid: ExternalGrids[] = [];
-  source: any =
-  {
-      datatype: 'xml',
-      datafields: [
-          { name: 'ProductName', type: 'string' },
-          { name: 'QuantityPerUnit', type: 'int' },
-          { name: 'UnitPrice', type: 'float' },
-          { name: 'UnitsInStock', type: 'float' },
-          { name: 'Discontinued', type: 'bool' }
+    this.gridOptions = {
+      onCellValueChanged: function(event) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json; charset=utf-8');
+        console.log("onCellValueChanged");
+        console.log('data after changes is: ', event.data);
+        http.put(baseUrl + 'api/ExternalGrid/' + event.data.id, JSON.stringify({ ID: event.data.id, Name: event.data.name, NodeNo: event.data.nodeNo, NodeType: event.data.nodeType, VoltageAngle: event.data.voltageAngle, VoltageSetpoint: event.data.voltageSetpoint, ActivePower: event.data.activePower, ReactivePower: event.data.reactivePower }), { headers: headers }).subscribe();
+        //alert("External Grid detail updated");
+        
+      },
+      onCellEditingStopped: () => {
+        console.log("onCellEditingStopped");
+      },
+      enableSorting: true,
+      enableFilter: true,
+      enableColResize: true,
+      animateRows: true,
+      rowSelection: 'multiple',
+      columnDefs: [
+        // put the three columns into a group
+        {
+          headerName: 'Load flow data',
+          children: [
+            //{ headerName: "",field: "value", cellRendererFramework: ButtonDeleteComponent, width: 75, editable:false, enableSorting: false, enableFilter: false, enableColResize:false},            
+            { headerName: "Name", field: "name", width: 110 },
+            { headerName: "No. of node", field: "nodeNo", width: 100 },
+            { headerName: "Type of node", field: "nodeType", width: 100 },
+            { headerName: "Voltage angle [deg]", field: "voltageAngle" },
+            { headerName: "Voltage setpoint [p.u.]", field: "voltageSetpoint" },
+            { headerName: "Active power [MW]", field: "activePower" },
+            { headerName: "Reactive power [MVAr]", field: "reactivePower", width: 170 }
+          ]
+        }
       ],
-      root: 'Products',
-      record: 'Product',
-      id: 'ProductID',
-      url: './products.xml'
-  };
+      defaultColDef: {
+        // set every column width
+        width: 150,
+        // make every column editable
+        editable: true,
+        // make every column use 'text' filter by default
+        filter: 'text'
+      },
+    }
 
-  dataAdapter: any = new jqx.dataAdapter(this.source);
+    this.http.get(baseUrl + 'api/ExternalGrid/GetExternalGrids').subscribe(result => {
+      this.rowData = result.json();
+    });
+    //this.AddExtGridTable = false;    
+  }
+  printResult(res) {
+    console.log('---------------------------------------')
+    if (res.add) {
+      res.add.forEach(function (rowNode) {
+        console.log('Added Row Node', rowNode);
+      });
+    }
+    if (res.remove) {
+      res.remove.forEach(function (rowNode) {
+        console.log('Removed Row Node', rowNode);
+      });
+    }
+    if (res.update) {
+      res.update.forEach(function (rowNode) {
+        console.log('Updated Row Node', rowNode);
+      });
+    }
+  }
+  selectAllRows() {
+    this.gridOptions.api.selectAll();
+  }
+  
+  //to get all the Student data from Web API  
+  getData() {
 
-  cellsrenderer = (row: number, columnfield: string, value: string | number, defaulthtml: string, columnproperties: any, rowdata: any): string => {
-      if (value < 20) {
-          return `<span style='margin: 4px; float:${columnproperties.cellsalign}; color: #ff0000;'>${value}</span>`;
+    this.http.get('api/ExternalGrid/GetExternalGrids').subscribe(result => {
+      this.rowData = result.json(); //było this.externalgrid
+    }); //, error => console.error(error)
+  }
+
+  removeSelected() {
+
+    if (window.confirm('Are you sure you want to delete?')) {
+      //front-end
+      var selectedData = this.gridOptions.api.getSelectedRows();
+
+      let rowIdArray: number[] = [];
+      this.gridOptions.api.forEachNode(function (node) {
+
+        if (node.isSelected()) {
+          rowIdArray.push(node.data.id);
+        }
+      });
+
+      var res = this.gridOptions.api.updateRowData({ remove: selectedData });
+      this.printResult(res);
+
+      //back-end
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      for (var rowId = 0; rowId < rowIdArray.length; rowId++) {
+        this.http.delete('api/ExternalGrid/' + rowIdArray[rowId], { headers: headers }).subscribe();
       }
-      else {
-          return `<span style='margin: 4px; float:${columnproperties.cellsalign}; color: #008000;'>${value}</span>`;
-      }
-  };
 
-  columns: any[] =
-  [
-      { text: 'Product Name', columngroup: 'ProductDetails', datafield: 'ProductName', width: 250 },
-      { text: 'Quantity per Unit', columngroup: 'ProductDetails', datafield: 'QuantityPerUnit', cellsalign: 'right', align: 'right' },
-      { text: 'Unit Price', columngroup: 'ProductDetails', datafield: 'UnitPrice', align: 'right', cellsalign: 'right', cellsformat: 'c2' },
-      { text: 'Units In Stock', datafield: 'UnitsInStock', cellsalign: 'right', cellsrenderer: this.cellsrenderer, width: 100 },
-      { text: 'Discontinued', columntype: 'checkbox', datafield: 'Discontinued', align: 'center' }
-  ];
+    } else { }
+  }  
 
-  columngroups: any[] =
-  [
-      { text: 'Product Details', align: 'center', name: 'ProductDetails' }
-  ];
-
-  */
-  /* 
-  
-   // to hide and Show Insert/Edit   
-   AddExtGridTable: Boolean = false;
-  
-   public createButton = true;
-  
-   // To stored ExternalGrid Informations for insert/Update and Delete  
-   public IDs = 0;
-   public Names = "";
-   public NodeNos = 0;
-   public NodeTypes = "";
-   public VoltageAngles = 0;
-   public VoltageSetpoints = 0;
-   public ActivePowers = 0;
-   public ReactivePowers = 0;
-  
-   //For display Edit and Delete Images  
-   public imgEdit = require("./images/edit.gif");
-   public imgDelete = require("./Images/delete.gif");
-  
-  
-   //for animation status   
-   animStatus: string = 'inactive';
-  
-   
-  
-   constructor(public http:Http ) {   //public http:  Http, @Inject('/api/ExternalGridController') public originUrl: string
-     
-     this.AddExtGridTable = false;
-     this.getData();
-  
-   }
-  
-   //for Animation to toggle Active and Inactive  
-   animButton() {
-     this.animStatus = (this.animStatus === 'inactive' ? 'active' : 'inactive');
-   }
-  
-   //to get all the Student data from Web API  
-   getData() {
-     this.http.get('api/ExternalGridController/GetExternalGrids').subscribe(result => {
-       this.externalgrid = result.json();
-     });
-   }
-   // to show form for add new Student Information  
-   AddExtGrid() {
-     this.animButton();
-     this.AddExtGridTable = true;
-     this.createButton = false;
-     this.IDs = 0;
-     this.Names = "";
-     this.NodeNos = 0;
-     this.NodeTypes = "";
-     this.VoltageAngles = 0;
-     this.VoltageSetpoints = 0;
-     this.ActivePowers = 0;
-     this.ReactivePowers = 0;
-   }
-  
-   // to show form for edit Student Information  
-   editExtGridDetails(ID: number, Name: string, NodeNo: number, NodeType: string, VoltageAngle: number, VoltageSetpoint: number, ActivePower: number, ReactivePower: number) {
-     this.animButton();
-     this.AddExtGridTable = true;
-     this.IDs = ID;
-     this.Names = Name;
-     this.NodeNos = NodeNo;
-     this.NodeTypes = NodeType;
-     this.VoltageAngles = VoltageAngle;
-     this.VoltageSetpoints = VoltageSetpoint;
-     this.ActivePowers = ActivePower;
-     this.ReactivePowers = ReactivePower;
-   }
-   // If the studentid is 0 then insert the student infromation using post and if the student id is more than 0 then edit using put mehod  
-   addExtGridDetails(ID: number, Name: string, NodeNo: number, NodeType: string, VoltageAngle: number, VoltageSetpoint: number, ActivePower: number, ReactivePower: number) {
-     
-   
-     var headers = new Headers();
-     headers.append('Content-Type', 'application/json; charset=utf-8');
-     
-     if (ID == 0) {
-       this.http.post('api/ExternalGridController', JSON.stringify({ ID: ID, Name: Name, NodeNo: NodeNo, NodeType: NodeType, VoltageAngle: VoltageAngle, VoltageSetpoint: VoltageSetpoint, ActivePower: ActivePower, ReactivePower: ReactivePower }), { headers: headers }).subscribe();
-       alert("External Grid created");
-     }   
-     else {
-       this.http.put('api/ExternalGridController/' + ID, JSON.stringify({ ID: ID, Name: Name, NodeNo: NodeNo, NodeType: NodeType, VoltageAngle: VoltageAngle, VoltageSetpoint: VoltageSetpoint, ActivePower: ActivePower, ReactivePower: ReactivePower }), { headers: headers }).subscribe();
-       alert("External Grid detail updated");
-     }    
-     this.createButton = true;
-     this.AddExtGridTable = false;
-     this.getData();
-   }
-  
-   //to Delete the selected student detail from database.  
-   deleteExtGridDetails(id: number) {
-     //alert("Kliknałem");    
-     
-     if (window.confirm('Are you sure you want to delete?')) {
-       var headers = new Headers();
-       headers.append('Content-Type', 'application/json; charset=utf-8');  
-       this.http.delete('api/ExternalGridController/' + id, { headers: headers }).subscribe(); 
-       alert("Student Detail Deleted");  //musi być uwzglednione zeby dobrze działało
-       this.getData();   
-         
-     } else {
-       
-     }
-  
-  
-     
-   }
-  
-   closeEdits() {
-     //this.AddExtGridTable = true;
-     this.AddExtGridTable = false;
-     this.createButton = true;
-     this.IDs = 0;
-     this.Names = "";
-     this.NodeNos = 0;
-     this.NodeTypes = "";
-     this.VoltageAngles = 0;
-     this.VoltageSetpoints = 0;
-     this.ActivePowers = 0;
-     this.ReactivePowers = 0;
-   }
-  
-  */
-
+  onAddRow() {
+    
+    var newItem = {
+      //id: 0,
+      name: "External Grid",
+      nodeNo: 0,
+      nodeType: "SL",
+      voltageAngle: 0,
+      voltageSetpoint: 0,
+      activePower: 0,
+      reactivePower: 0
+    };
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      this.http.post('api/ExternalGrid', JSON.stringify({ /*ID: newItem.id,*/ Name: newItem.name, NodeNo: newItem.nodeNo, NodeType: newItem.nodeType, VoltageAngle: newItem.voltageAngle, VoltageSetpoint: newItem.voltageSetpoint, ActivePower: newItem.activePower, ReactivePower: newItem.reactivePower }), { headers: headers }).subscribe();
+      
+      this.getData();
+      var res = this.gridOptions.api.updateRowData({add: [newItem]});
+      this.printResult(res);
+  }
 }
 
 export interface ExternalGrids {
@@ -315,4 +179,3 @@ export interface ExternalGrids {
   activePower: number;
   reactivePower: number;
 }
-

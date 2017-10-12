@@ -16,6 +16,7 @@ import { ExternalGridsComponent } from './components/externalgrids/externalgrids
 import { OverheadLinesComponent } from './components/overheadlines/overheadlines.component';
 import { TwoPhaseTransformersComponent } from './components/twophasetransformers/twophasetransformers.component';
 import { LoadFlowComponent } from './components/loadflow/loadflow.component';
+import {ButtonDeleteComponent } from './components/externalgrids/button-delete.component';
 
 //import { Ng2SmartTableModule } from 'ng2-smart-table';
 //import { jqxGridComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxgrid';
@@ -26,6 +27,7 @@ import { LoadFlowComponent } from './components/loadflow/loadflow.component';
 
 @NgModule({
     
+    //określ który komponent należy do tego modułu
     declarations: [
         AppComponent,
         NavMenuComponent,
@@ -35,16 +37,19 @@ import { LoadFlowComponent } from './components/loadflow/loadflow.component';
         ExternalGridsComponent,
         OverheadLinesComponent,
         TwoPhaseTransformersComponent,
-        LoadFlowComponent
+        LoadFlowComponent,
+        ButtonDeleteComponent
       //  BaseComponentFactory       
           
     ],
+
+    //określ moduły, które bedą dostepne dla wszystkich komponentów które należą do tego modułu
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
         //AgGridModule.forRoot(),
-        AgGridModule.withComponents([]),
+        AgGridModule.withComponents([ButtonDeleteComponent]),
         
         
         RouterModule.forRoot([
