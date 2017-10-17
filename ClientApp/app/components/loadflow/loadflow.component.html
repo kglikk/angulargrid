@@ -1,28 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Load flow result</title>
 </head>
+
 <body>
-    <p *ngIf="!loadflow"><em>Loading Load Flow results please Wait ! ...</em></p>
+    <div class="row">
+        <div class='col-sm-12' style="width: 100%; height: 500px;">      
 
-    <table class='table' *ngIf="loadflow">
-        <thead>
-            <tr>                
-                <th>No. of node</th>
-                <th>Voltage</th>
-                <th>Voltage angle</th>              
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr *ngFor="let LoadFlow  of loadflow">
-                <td>{{LoadFlow.busNo}}</td>
-                <td>{{LoadFlow.resultU}}</td>
-                <td>{{LoadFlow.resultSigma}}</td>  
-            </tr>
-        </tbody>
-    </table>
+            <ag-grid-angular #agGrid style="width: 100%;height: 100%;" class="ag-fresh" [gridOptions]="gridOptions" [rowData]="rowData"> 
+            </ag-grid-angular>
+        </div>
+    </div>
 </body>
+
 </html>

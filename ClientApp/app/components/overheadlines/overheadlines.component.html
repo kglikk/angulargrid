@@ -1,36 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Overhead lines</title>
 </head>
+
 <body>
-    <p *ngIf="!overheadline"><em>Loading Overhead Lines data please Wait ! ...</em></p>
+    <div class="row">
+        <div class='col-sm-12' style="margin-top: 10px; margin-bottom: 10px">
+            <button type="button" class="btn btn-primary" (click)=onAddRow()>Add Row</button>
+            <button type="button" class="btn btn-danger" (click)=removeSelected()>Delete selected</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-sm-12' style="width: 100%; height: 500px;">          
 
-    <table class="table" *ngIf="overheadline">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>No. of start node</th>
-                <th>No. of end node</th>
-                <th>Length [km]</th>
-                <th>Unitary resistance [Ω/km]</th>
-                <th>Unitary reactance [Ω/km]</th>
-                <th>Unitary capacitance [μS/km]</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let OverheadLines of overheadline">
-                <td>{{OverheadLines.name}}</td>
-                <td>{{OverheadLines.startNodeNo}}</td>
-                <td>{{OverheadLines.endNodeNo}}</td>
-                <td>{{OverheadLines.length}}</td>
-                <td>{{OverheadLines.unitaryResistance}}</td>
-                <td>{{OverheadLines.unitaryReactance}}</td>
-                <td>{{OverheadLines.unitaryCapacitance}}</td>
-            </tr>
-        </tbody>
-    </table>
-
+            <ag-grid-angular #agGrid style="width: 100%;height: 100%;" class="ag-fresh" [gridOptions]="gridOptions" [rowData]="rowData"
+                > 
+            </ag-grid-angular>
+        </div>
+    </div>
 </body>
+
 </html>

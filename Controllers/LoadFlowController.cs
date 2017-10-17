@@ -161,19 +161,14 @@ namespace proba1.Controllers
               return viewModel;
               */
 
-
-
             var list = new LoadFlows();
 
             list.Results = new List<LoadFlowResult>();
-
             for (int z = 0; z <= (N_bus - 1); z++)
             {
                 var a = new LoadFlowResult() { busNo = z, resultU = U[z], resultSigma = normalSigma[z] };
-
                 list.Results.Add(a);          
             }
-
             return list.Results;           
         }
 

@@ -225,3 +225,34 @@
                 </td>
             </tbody>
         </table>
+
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <title></title>
+        </head>
+        <body>
+            <p *ngIf="!loadflow"><em>Loading Load Flow results please Wait ! ...</em></p>
+        
+            <table class='table' *ngIf="loadflow">
+                <thead>
+                    <tr>                
+                        <th>No. of node</th>
+                        <th>Voltage</th>
+                        <th>Voltage angle</th>              
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr *ngFor="let LoadFlow  of loadflow">
+                        <td>{{LoadFlow.busNo}}</td>
+                        <td>{{LoadFlow.resultU}}</td>
+                        <td>{{LoadFlow.resultSigma}}</td>  
+                    </tr>
+                </tbody>
+            </table>
+        </body>
+        </html>
+        

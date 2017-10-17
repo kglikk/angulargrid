@@ -16,7 +16,7 @@ import { ExternalGridsComponent } from './components/externalgrids/externalgrids
 import { OverheadLinesComponent } from './components/overheadlines/overheadlines.component';
 import { TwoPhaseTransformersComponent } from './components/twophasetransformers/twophasetransformers.component';
 import { LoadFlowComponent } from './components/loadflow/loadflow.component';
-import {ButtonDeleteComponent } from './components/externalgrids/button-delete.component';
+
 
 //import { Ng2SmartTableModule } from 'ng2-smart-table';
 //import { jqxGridComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxgrid';
@@ -38,7 +38,7 @@ import {ButtonDeleteComponent } from './components/externalgrids/button-delete.c
         OverheadLinesComponent,
         TwoPhaseTransformersComponent,
         LoadFlowComponent,
-        ButtonDeleteComponent
+       
       //  BaseComponentFactory       
           
     ],
@@ -49,7 +49,7 @@ import {ButtonDeleteComponent } from './components/externalgrids/button-delete.c
         HttpModule,
         FormsModule,
         //AgGridModule.forRoot(),
-        AgGridModule.withComponents([ButtonDeleteComponent]),
+        AgGridModule.withComponents([]),
         
         
         RouterModule.forRoot([
@@ -60,8 +60,7 @@ import {ButtonDeleteComponent } from './components/externalgrids/button-delete.c
             { path: 'externalgrids', component: ExternalGridsComponent },
             { path: 'overheadlines', component: OverheadLinesComponent },
             { path: 'twophasetransformers', component: TwoPhaseTransformersComponent },
-            { path: 'loadflow', component: LoadFlowComponent },
-            { path: 'product', component: LoadFlowComponent },
+            { path: 'loadflow', component: LoadFlowComponent },            
             { path: '**', redirectTo: 'home' }
         ])
     ]

@@ -320,3 +320,55 @@ function addExtGridDetails(ID: number, Name: string, NodeNo: number, NodeType: s
     var res = this.gridOptions.api.updateRowData({ add: [newItem] });
     this.printResult(res);
   } */
+
+    //console.log("event.data.voltageAngle: " + event.data.voltageAngle);
+        //console.log("typeofevent.data.voltageAngle: " + typeof (event.data.voltageAngle));
+        /*
+        if (!isNaN(event.data.voltageAngle) ){
+          var headers = new Headers();
+          headers.append('Content-Type', 'application/json; charset=utf-8');
+          console.log('data after changes in database: ', event.data);
+          http.put(baseUrl + 'api/ExternalGrid/' + event.data.id, JSON.stringify({ ID: event.data.id, Name: event.data.name, NodeNo: event.data.nodeNo, NodeType: event.data.nodeType, VoltageAngle: event.data.voltageAngle, VoltageSetpoint: event.data.voltageSetpoint, ActivePower: event.data.activePower, ReactivePower: event.data.reactivePower }), { headers: headers }).subscribe();
+          //alert("External Grid detail updated");
+
+        } */
+
+        /*
+        
+import {Component} from '@angular/core';
+import {ICellRendererAngularComp} from "ag-grid-angular";
+
+@Component({
+    selector: 'buttonDelete',
+    template: '<span><button style="height: 20px" (click)=hej() class="btn btn-danger">Delete</button></span>',
+    styles: [
+        `.btn {
+            line-height: 0.5
+        }`
+    ]
+})
+
+export class ButtonDeleteComponent implements ICellRendererAngularComp {
+    public params: any;
+   
+
+    
+        agInit(params: any): void {
+            this.params = params;
+        }
+    
+        public invokeParentMethod() {
+            this.params.context.componentParent.methodFromParent(`Row: ${this.params.node.rowIndex}, Col: ${this.params.colDef.headerName}`)
+        }
+    
+        refresh(): boolean {
+            return false;
+        }
+
+        public hej(){
+            alert("hej");
+          }
+
+
+}
+*/

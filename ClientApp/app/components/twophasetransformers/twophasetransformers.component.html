@@ -1,38 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Two phase transformers</title>
 </head>
+
 <body>
-    <p *ngIf="!twophasetransformer"><em>Loading Overhead Lines data please Wait ! ...</em></p>
+    <div class="row">
+        <div class='col-sm-12' style="margin-top: 10px; margin-bottom: 10px">
+            <button type="button" class="btn btn-primary" (click)=onAddRow()>Add Row</button>
+            <button type="button" class="btn btn-danger" (click)=removeSelected()>Delete selected</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-sm-12' style="width: 100%; height: 500px;">          
 
-    <table class="table" *ngIf="twophasetransformer">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>No. of HV node</th>
-                <th>No. of LV node</th>
-                <th>Rated voltage - HV side [kV]</th>
-                <th>Rated voltage - LV side [kV]</th>
-                <th>Rated apparent power [MVA]</th>
-                <th>Load Losses [kW]</th>
-                <th>Short Circuit Voltage [%]</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let TwoPhaseTransformers of twophasetransformer">
-                <td>{{TwoPhaseTransformers.name}}</td>
-                <td>{{TwoPhaseTransformers.HVNodeNo}}</td>
-                <td>{{TwoPhaseTransformers.LVNodeNo}}</td>
-                <td>{{TwoPhaseTransformers.HVVoltageRated}}</td>
-                <td>{{TwoPhaseTransformers.LVVoltageRated}}</td>
-                <td>{{TwoPhaseTransformers.apparentPowerRated}}</td>
-                <td>{{TwoPhaseTransformers.loadLossesRated}}</td>
-                <td>{{TwoPhaseTransformers.shortCircuitVoltage}}</td>
-            </tr>
-        </tbody>
-    </table>
-
+            <ag-grid-angular #agGrid style="width: 100%;height: 100%;" class="ag-fresh" [gridOptions]="gridOptions" [rowData]="rowData"
+                > 
+            </ag-grid-angular>
+        </div>
+    </div>
 </body>
+
 </html>

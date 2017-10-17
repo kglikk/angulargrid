@@ -25,16 +25,15 @@ namespace angulargrid.Controllers
         }
 
         // GET: api/values
-        [HttpGet("[action]")]
-       // [Route("GetExternalGrids")]
-        public IEnumerable<ExternalGrid> GetExternalGrids()
+        [HttpGet("[action]")]       
+        public IEnumerable<ExternalGrid> Get()
         {
             return _context.ExternalGrids;
         }
 
         // POST: api/StudentMastersAPI  
         [HttpPost]
-        public async Task<IActionResult> PostExtGrid([FromBody] ExternalGrid extgrid)  
+        public async Task<IActionResult> Post([FromBody] ExternalGrid extgrid)  
         {  
             if (!ModelState.IsValid)  
             {  
@@ -57,7 +56,7 @@ namespace angulargrid.Controllers
                     throw;  
                 }  
             }  
-            return CreatedAtAction("GetExternalGrids", new { id = extgrid.ID }, extgrid);  
+            return CreatedAtAction("Get", new { id = extgrid.ID }, extgrid);  
         }
 
         private bool ExtGridExists(int id)  
@@ -67,7 +66,7 @@ namespace angulargrid.Controllers
 
         // PUT: api/ExternalGridController/5  
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExtGrid([FromRoute] int id, [FromBody] ExternalGrid extgrid)  
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] ExternalGrid extgrid)  
         {  
             if (!ModelState.IsValid)  
             {  
@@ -102,7 +101,7 @@ namespace angulargrid.Controllers
 
         // DELETE: api/ExternalGridController/5  
         [HttpDelete("{id}")]  
-        public async Task<IActionResult> DeleteExtGrid([FromRoute] int id)  
+        public async Task<IActionResult> Delete([FromRoute] int id)  
         {  
             if (!ModelState.IsValid)  
             {  
@@ -119,25 +118,6 @@ namespace angulargrid.Controllers
             await _context.SaveChangesAsync();
               
             return Ok(extgrid);  
-        }         
-
-
-
-        // POST: ExternalGrids/Create
-      
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /* [HttpPost]
-         [ValidateAntiForgeryToken]
-         [Route("ExternalGridCreate")]
-         public void Create([Bind("ID,Name,NodeNo,NodeType,VoltageAngle,VoltageSetpoint,ActivePower,ReactivePower")] ExternalGrid externalGrid)
-         {
-             if (ModelState.IsValid)
-             {
-                 _context.Add(externalGrid);
-                 _context.SaveChangesAsync();                
-             }            
-
-         } */
+        } 
     }
 }
