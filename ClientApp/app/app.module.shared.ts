@@ -1,21 +1,25 @@
-
+import { AuthGuard } from './services/auth-guard.service';
 
 import { NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, CanActivate } from '@angular/router';
 import {AgGridModule} from 'ag-grid-angular/main';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { ExternalGridsComponent } from './components/externalgrids/externalgrids.component';
 import { OverheadLinesComponent } from './components/overheadlines/overheadlines.component';
 import { TwoPhaseTransformersComponent } from './components/twophasetransformers/twophasetransformers.component';
 import { LoadFlowComponent } from './components/loadflow/loadflow.component';
+
+import { AuthService } from './services/auth.service';
+import { CallbackComponent } from './components/callback/callback.component';
+
+
+
 
 
 //import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -32,15 +36,21 @@ import { LoadFlowComponent } from './components/loadflow/loadflow.component';
         AppComponent,
         NavMenuComponent,
         HomeComponent,
-        CounterComponent,
-        FetchDataComponent,
         ExternalGridsComponent,
         OverheadLinesComponent,
         TwoPhaseTransformersComponent,
         LoadFlowComponent,
+        CallbackComponent
        
       //  BaseComponentFactory       
           
+    ],
+
+    //definiuje obiekty Injectable, ktore beda dostepne dla modulow
+    providers: [
+        AuthService,
+        AuthGuard
+        
     ],
 
     //określ moduły, które bedą dostepne dla wszystkich komponentów które należą do tego modułu
@@ -54,13 +64,12 @@ import { LoadFlowComponent } from './components/loadflow/loadflow.component';
         
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'externalgrids', component: ExternalGridsComponent },
-            { path: 'overheadlines', component: OverheadLinesComponent },
-            { path: 'twophasetransformers', component: TwoPhaseTransformersComponent },
-            { path: 'loadflow', component: LoadFlowComponent },            
+            { path: 'home', component: HomeComponent },      
+            { path: 'externalgrids', component: ExternalGridsComponent, canActivate: [AuthGuard] },
+            { path: 'overheadlines', component: OverheadLinesComponent, canActivate: [AuthGuard] },
+            { path: 'twophasetransformers', component: TwoPhaseTransformersComponent, canActivate: [AuthGuard] },
+            { path: 'loadflow', component: LoadFlowComponent, canActivate: [AuthGuard] },
+            { path: 'callback', component: CallbackComponent },            
             { path: '**', redirectTo: 'home' }
         ])
     ]

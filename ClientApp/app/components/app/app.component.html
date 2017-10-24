@@ -1,14 +1,29 @@
-
 <div class='container-fluid'>
-        
+    <!--
+      <button
+        class="btn btn-primary btn-margin"
+        routerLink="/">
+          Home
+      </button>
+    -->
+
     <div class='row'>
         <div class='col-sm-3'>
             <nav-menu></nav-menu>
         </div>
         <div class='col-sm-9 body-content'>
-           
-            <router-outlet></router-outlet>       
-           
+            <!--
+            <button class="btn btn-primary btn-margin" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">
+                Log In
+            </button>
+
+            <button class="btn btn-primary btn-margin" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">
+                Log Out
+            </button> -->            
+
+            <router-outlet></router-outlet>
+
         </div>
     </div>
+    
 </div>

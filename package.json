@@ -26,6 +26,7 @@
     "angular2-template-loader": "0.6.2",
     "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^2.0.1",
+    "auth0-js": "^8.10.1",
     "awesome-typescript-loader": "3.2.1",
     "bootstrap": "3.3.7",
     "core-js": "https://registry.npmjs.org/core-js/-/core-js-2.5.1.tgz",

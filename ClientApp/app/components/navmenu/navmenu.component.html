@@ -9,40 +9,53 @@
             </button>
             <a class='navbar-brand' [routerLink]="['/home']">angulargrid</a>
         </div>
-        <div class='clearfix'></div>
+        <div class='clearfix'>
+            <!--
+            <button class="btn btn-primary btn-margin" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">
+                Log In
+            </button>
+
+            <button class="btn btn-primary btn-margin" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">
+                Log Out
+            </button>
+        -->
+        </div>
+
+
+
+
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
+                <li >
+                    <a [routerLink]="['/home']" (click)="auth.login()" *ngIf="!auth.isAuthenticated()" >
+                        <span class='glyphicon glyphicon-user'></span> Login
+                    </a>
+                    <a [routerLink]="['/home']" (click)="auth.logout()" *ngIf="auth.isAuthenticated()" >
+                            <span class='glyphicon glyphicon-user'></span> Logout
+                        </a>
+
+                </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/counter']">
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/fetch-data']">
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="auth.isAuthenticated()">
                     <a [routerLink]="['/externalgrids']">
                         <span class='glyphicon glyphicon-th-list'></span> External grids
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="auth.isAuthenticated()">
                     <a [routerLink]="['/overheadlines']">
                         <span class='glyphicon glyphicon-th-list'></span> Overhead lines
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="auth.isAuthenticated()">
                     <a [routerLink]="['/twophasetransformers']">
                         <span class='glyphicon glyphicon-th-list'></span> Two-phase transformers
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="auth.isAuthenticated()">
                     <a [routerLink]="['/loadflow']">
                         <span class='glyphicon glyphicon-th-list'></span> Load flow
                     </a>

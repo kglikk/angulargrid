@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,6 +16,7 @@ namespace angulargrid.Controllers
 {
     //[Produces("application/json")]
     [Route("api/[controller]")]
+    
     public class ExternalGridController : Controller
     {
         private readonly DataContext _context;
@@ -25,7 +27,9 @@ namespace angulargrid.Controllers
         }
 
         // GET: api/values
-        [HttpGet("[action]")]       
+        [HttpGet("[action]")]
+        //[Authorize]
+              
         public IEnumerable<ExternalGrid> Get()
         {
             return _context.ExternalGrids;
